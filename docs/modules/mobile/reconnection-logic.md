@@ -42,11 +42,11 @@ You can listen for this event in order to perform any kind of disconnection logi
 
 If SpatialOS believes you are still connected and your server-worker thinks you are disconnected, you won’t receive a `DisconnectOp`.
 
-In most game designs, your client will have authority over exactly one entity: the player entity.
+In most game designs, your client will have authority over exactly one entity: the player entity. If your server-worker disconnects you and you use our player lifecycle module, the server-worker will destroy your player entity.
 
-If your server-worker disconnects you and you use our player lifecycle module, the server-worker will destroy your player entity. This will leave your client with no entities to be authoritative over and it is still connected. If your client is not authoritative over any entity, it will not be able to have any entities in its view and the world will appear to be empty.
+This will leave your client still connected to SpatialOS, but without any entities to be authoritative over. If your client is not authoritative over any entity, it will not be able to have any entities in its view and the client's world will appear to be empty.
 
-You will have to implement logic to listen to a possible loss of the player entity and handle it by either
+You will have to implement logic to listen to a possible loss of the player entity and handle it by either:
 
-1. Request a new player entity
-2. Disconnect & reconnect
+1. Requesting a new player entity.
+2. Disconnect & reconnect the client.
